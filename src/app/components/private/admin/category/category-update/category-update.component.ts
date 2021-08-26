@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-category-update',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryUpdateComponent implements OnInit {
 
-  constructor() { }
+  updateCategoryForm: FormGroup
+  constructor(private fb: FormBuilder) {
+    let formControls = {
+      categoryName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2)
+      ])
+    }
+    this.updateCategoryForm = this.fb.group(formControls);
+   }
 
   ngOnInit(): void {
+  }
+
+  get categoryName(): any { return this.updateCategoryForm.get('categoryName') }
+
+  updateCategory() {
+    let data = this.updateCategoryForm.value;
+    console.log(data);
   }
 
 }

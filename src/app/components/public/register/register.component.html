@@ -17,43 +17,64 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" [formGroup]="registerForm" (ngSubmit)="register()">
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                                <input type="text" class="form-control form-control-user" id="exampleFirstName" formControlName="firstname" placeholder="First Name" [ngClass]="{'is-invalid' : firstname?.touched && firstname?.invalid, 'is-valid' : firstname?.touched && !firstname?.invalid}">
+                                                <div *ngIf="firstname?.touched && firstname?.invalid">
+                                                    <small *ngIf="firstname?.errors?.required" class="text-danger">*Firstname is required<br></small>
+                                                    <small *ngIf="firstname?.errors?.pattern" class="text-danger">*Invalid Firstname<br></small>
+                                                    <small *ngIf="firstname?.errors?.minlength" class="text-danger">*Firstname must contain two characters at least</small>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                                <input type="text" class="form-control form-control-user" id="exampleLastName" formControlName="lastname" placeholder="Last Name" [ngClass]="{'is-invalid' : lastname?.touched && lastname?.invalid, 'is-valid' : lastname?.touched && !lastname?.invalid}">
+                                                <div *ngIf="lastname?.touched && lastname?.invalid">
+                                                    <small *ngIf="lastname?.errors?.required" class="text-danger">*Lastname is required<br></small>
+                                                    <small *ngIf="lastname?.errors?.pattern" class="text-danger">*Invalid Lastname<br></small>
+                                                    <small *ngIf="lastname?.errors?.minlength" class="text-danger">*Lastname must contain two characters at least</small>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" formControlName="email" placeholder="Email Address" [ngClass]="{'is-invalid' : email?.touched && email?.invalid, 'is-valid' : email?.touched && !email?.invalid}">
+                                            <div *ngIf="email?.touched && email?.invalid">
+                                                <small *ngIf="email?.errors?.required" class="text-danger">*Email is required<br></small>
+                                                <small *ngIf="email?.errors?.email" class="text-danger">*Invalid Email<br></small>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" formControlName="password" placeholder="Password" [ngClass]="{'is-invalid' : password?.touched && password?.invalid, 'is-valid' : password?.touched && !password?.invalid}">
+                                                <div *ngIf="password?.touched && password?.invalid">
+                                                    <small *ngIf="password?.errors?.required" class="text-danger">*Password is required<br></small>
+                                                    <small *ngIf="password?.errors?.pattern" class="text-danger">
+                                                        *Password must contains atleast : <br>
+                                                        &nbsp;&nbsp;1 majuscule and 1 minuscule letters, 1 number <br>
+                                                        &nbsp;&nbsp;and 1 of these special characters [.#?!@$%^&*-] <br>
+                                                        
+                                                    </small>
+                                                    <small *ngIf="password?.errors?.minlength" class="text-danger">*Password must contain 8 characters at least</small>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                                <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" formControlName="repassword" placeholder="Repeat Password" [ngClass]="{'is-invalid' : repassword?.touched && repassword?.invalid && repassword?.value != password?.value, 'is-valid' : repassword?.touched && !repassword?.invalid && repassword?.value == password?.value}">
+                                                <div *ngIf="repassword?.touched && repassword?.invalid">
+                                                    <small *ngIf="repassword?.errors?.required" class="text-danger">*Repeat Password is required<br></small>
+                                                </div>
+                                                <div *ngIf="repassword?.valid && repassword?.value != password?.value" class="text-danger">
+                                                    <small>*The passwords entered do not match</small>
+                                                </div>
                                             </div>
                                         </div>
-                                        <a href="#" class="btn btn-primary btn-user btn-block">
+                                        <button class="btn btn-primary btn-user btn-block" type="submit" [disabled]="registerForm.invalid || repassword?.value != password?.value">
                                             Register Account
-                                            </a>
+                                        </button>
                                         <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Register with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                        </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="./forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="./login.html">Already have an account? Login!</a>
+                                        <a class="small" routerLink="/login">Already have an account? Login!</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,3 +86,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

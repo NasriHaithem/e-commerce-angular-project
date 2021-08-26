@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="bg-gradient-primary public-pages-padding">
-    <div class="container mt-4">
+    <div class="container ">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -17,17 +17,25 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" [formGroup]="loginForm" (ngSubmit)="login()">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" formControlName="email" placeholder="Enter Email Address..." [ngClass]="{'is-invalid' : email?.touched && email?.invalid, 'is-valid' : email?.touched && !email?.invalid}">
+                                            <div *ngIf="email?.touched && email?.invalid">
+                                                <small *ngIf="email?.errors?.required" class="text-danger">*Email is required<br></small>
+                                                <small *ngIf="email?.errors?.email" class="text-danger">*Invalid Email<br></small>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" formControlName="password" placeholder="Password" [ngClass]="{'is-invalid' : password?.touched && password?.invalid, 'is-valid' : password?.touched && !password?.invalid}">
+                                            <div *ngIf="password?.touched && password?.invalid">
+                                                <small *ngIf="password?.errors?.required" class="text-danger">*Password is required<br></small>
+                                                <small *ngIf="password?.errors?.minlength" class="text-danger">*Password must contain 8 characters at least</small>
+                                            </div>
                                         </div>
 
-                                        <a href="./../index.html" class="btn btn-primary btn-user btn-block">
+                                        <button class="btn btn-primary btn-user btn-block" type="submit" [disabled]="loginForm.invalid">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -55,3 +63,5 @@
 
     </div>
 </div>
+
+<app-footer></app-footer>
