@@ -4,8 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
-
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './components/public/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
@@ -57,6 +56,7 @@ import { MyOrderDetailsComponent } from './components/private/client/order/my-or
     AppRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

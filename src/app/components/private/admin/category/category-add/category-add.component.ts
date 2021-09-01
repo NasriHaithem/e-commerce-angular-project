@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-category-add',
@@ -9,7 +12,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CategoryAddComponent implements OnInit {
 
   addCategoryForm: FormGroup
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private router: Router
+    ) 
+  {
     let formControls = {
       categoryName: new FormControl('', [
         Validators.required,
@@ -17,7 +25,7 @@ export class CategoryAddComponent implements OnInit {
       ])
     }
     this.addCategoryForm = this.fb.group(formControls);
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -25,8 +33,17 @@ export class CategoryAddComponent implements OnInit {
   get categoryName(): any { return this.addCategoryForm.get('categoryName') }
 
   addCategory() {
-    let data = this.addCategoryForm.value;
-    console.log(data);
+    let newCategory = this.addCategoryForm.value;
+    console.log(newCategory);
     
+    let category = new Category(undefined, newCategory.categoryName);
+    this.categoryService.addCategory(category).subscribe(
+      (result) => {
+        this.router.navigateByUrl('/admin/category/list');
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
   }
 }
