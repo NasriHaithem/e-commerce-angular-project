@@ -13,9 +13,7 @@
                 <ul id="categories" class="list-group list-group-flush">
                     <li style="cursor:pointer" class="list-group-item">All</li>
 
-                    <li style="cursor:pointer" class="list-group-item">Smartphones</li>
-
-                    <li style="cursor:pointer" class="list-group-item">Laptops</li>
+                    <li style="cursor:pointer" class="list-group-item" *ngFor="let category of categories">{{category.name}}</li>
                 </ul>
             </div>
         </div>
@@ -51,12 +49,12 @@
             </div>
 
             <div id="products-list" class="row">
-                <div class="col-4 mb-3">
+                <div class="col-4 mb-3" *ngFor="let product of products">
                     <div class="card">
-                        <img src="assets/images/iphone-410324__340.webp" class="img-fluid">
+                        <img [src]="product.imageUrl" class="img-fluid">
                         <div class="card-body text-center">
-                            <h4 class="card-title">Iphone 4</h4>
-                            <p class="card-text">200 DT</p>
+                            <h4 class="card-title">{{product.name}}</h4>
+                            <p class="card-text">{{product.price}}</p>
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-dark btn-block">
@@ -65,76 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4 mb-3">
-                    <div class="card">
-                        <img src="assets/images/mobile-phone-1875813_960_720.webp" class="img-fluid">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Iphone 5</h4>
-                            <p class="card-text">500 DT</p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-dark btn-block">
-                            <i class="fa fa-plus"></i> Add to cart
-                        </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 mb-3">
-                    <div class="card">
-                        <img src="assets/images/home-office-336377__340.webp" class="img-fluid">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">MacBook Air</h4>
-                            <p class="card-text">3500 DT</p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-dark btn-block">
-                            <i class="fa fa-plus"></i> Add to cart
-                        </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 mb-3">
-                    <div class="card">
-                        <img src="assets/images/laptop-336378_1920.jpg" class="img-fluid">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">MacBook Pro</h4>
-                            <p class="card-text">3600 DT</p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-dark btn-block">
-                            <i class="fa fa-plus"></i> Add to cart
-                        </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 mb-3">
-                    <div class="card">
-                        <img src="assets/images/mobile-605422_1920.jpg" class="img-fluid">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Galaxy S219</h4>
-                            <p class="card-text">230 DT</p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-dark btn-block">
-                            <i class="fa fa-plus"></i> Add to cart
-                        </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 mb-3">
-                    <div class="card">
-                        <img src="assets/images/mobile-phone-1917737_1920.jpg" class="img-fluid">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Sony RX20</h4>
-                            <p class="card-text">136 DT</p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-dark btn-block">
-                            <i class="fa fa-plus"></i> Add to cart
-                        </button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
 

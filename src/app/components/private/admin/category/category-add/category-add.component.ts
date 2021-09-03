@@ -33,9 +33,7 @@ export class CategoryAddComponent implements OnInit {
   get categoryName(): any { return this.addCategoryForm.get('categoryName') }
 
   addCategory() {
-    let newCategory = this.addCategoryForm.value;
-    console.log(newCategory);
-    
+    let newCategory = this.addCategoryForm.value;    
     let category = new Category(undefined, newCategory.categoryName);
     this.categoryService.addCategory(category).subscribe(
       (result) => {
@@ -46,4 +44,5 @@ export class CategoryAddComponent implements OnInit {
       }
     )
   }
+
 }

@@ -36,34 +36,23 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>#id</th>
                                     <th>Name</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Smartphones</td>
+                                <tr *ngFor="let category of categories">
+                                    <td>{{category.id}}</td>
+                                    <td>{{category.name}}</td>
                                     <td>
-                                        <a routerLink="/admin/category/update" class="btn btn-sm btn-warning">
+                                        <a [routerLink]="['/admin/category/update',category.id]" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-danger">
+                                        <button class="btn btn-sm btn-danger" (click)="deleteCategory(category)">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Laptops</td>
-                                    <td>
-                                        <a routerLink="/admin/category/update" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
                                 </tr>
                             </tbody>
                         </table>

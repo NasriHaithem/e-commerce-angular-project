@@ -67,8 +67,7 @@
                                     <label for="category" id="price">Category : </label>
                                     <select class="custom-select" formControlName="category" [ngClass]="{'is-invalid' : category?.touched && category?.invalid, 'is-valid' : category?.touched && !category?.invalid}">
                                       <option selected disabled>Choose category</option>
-                                      <option>Smartphones</option>
-                                      <option>Laptops</option>
+                                      <option *ngFor="let categ of categories" [value]="categ.id">{{categ.name}}</option>
                                     </select>
                                     <div *ngIf="category?.touched && category?.invalid">
                                         <small *ngIf="category?.errors?.required" class="text-danger">*Category is required<br></small> </div>

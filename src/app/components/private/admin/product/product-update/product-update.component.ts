@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from 'src/app/models/category';
+import { Product } from 'src/app/models/product/product';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-product-update',
@@ -9,27 +14,31 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class ProductUpdateComponent implements OnInit {
 
   updateProductForm: FormGroup
-
-  constructor(private fb: FormBuilder) {
+  categories:any[]=[]
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute, 
+    private productService: ProductService,
+    private CategoryService:CategoryService,private router:Router) {
 
     let formControls = {
-      name: new FormControl('',[
+      name: new FormControl('', [
         Validators.required,
         Validators.minLength(2)
       ]),
-      description: new FormControl('',[
+      description: new FormControl('', [
         Validators.required,
         Validators.minLength(2)
       ]),
-      price: new FormControl('',[
+      price: new FormControl('', [
         Validators.required,
         Validators.pattern("[0-9]+")
       ]),
-      category: new FormControl('',[
+      category: new FormControl('', [
         Validators.required
       ]),
-      image: new FormControl('',[
-        Validators.required
+      image: new FormControl('', [
+        
       ])
     }
 
@@ -43,11 +52,33 @@ export class ProductUpdateComponent implements OnInit {
   get image() { return this.updateProductForm.get('image') }
 
   ngOnInit(): void {
+    this.CategoryService.getAllCategories().subscribe(
+      res=>this.categories=res,
+      err=>console.log(err)
+    )
+    this.productService.findProductById(this.route.snapshot.params.id).subscribe(
+      (res) => {        
+        this.updateProductForm.patchValue({
+          name: res.name,
+          description: res.description,
+          price: res.price, 
+          category: res.category?.name,
+          image: res.imageUrl
+    
+        })
+      },
+      err => console.log(err)
+    )
+    
   }
 
-  updateProduct(){
+  updateProduct() {
     let data = this.updateProductForm.value;
-    console.log(data);   
+    let product=new Product(this.route.snapshot.params.id,data.name,data.description,data.image,data.price,new Category(data.category))
+    this.productService.updateProduct(product).subscribe(
+      res=>this.router.navigateByUrl("admin/product/list"),
+      err=>console.log(err)
+      
+    )
   }
-
 }

@@ -33,10 +33,10 @@
                         <form [formGroup]="updateCategoryForm" (ngSubmit)="updateCategory()">
                             <div class="form-group">
                                 <label for="name" id="name">Name : </label>
-                                <input type="text" class="form-control" formControlName="categoryName" [ngClass]="{'is-invalid' : categoryName?.touched && categoryName?.invalid, 'is-valid' : categoryName?.touched && !categoryName?.invalid}">
-                                <div *ngIf="categoryName?.touched && categoryName?.invalid">
-                                    <small *ngIf="categoryName?.errors?.required" class="text-danger">*Category name is required<br></small>
-                                    <small *ngIf="categoryName?.errors?.minlength" class="text-danger">*Category name must contain 2 characters at least<br></small>
+                                <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid' : name?.touched && name?.invalid, 'is-valid' : name?.touched && !name?.invalid}">
+                                <div *ngIf="name?.touched && name?.invalid">
+                                    <small *ngIf="name?.errors?.required" class="text-danger">*Category name is required<br></small>
+                                    <small *ngIf="name?.errors?.minlength" class="text-danger">*Category name must contain 2 characters at least<br></small>
                                 </div>
                                 <button class="btn btn-sm btn-warning mt-3" [disabled]="updateCategoryForm.invalid">Update</button>
                             </div>
