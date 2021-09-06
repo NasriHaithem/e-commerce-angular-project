@@ -15,24 +15,29 @@ import { DashboardComponent } from './components/private/shared/dashboard/dashbo
 import { HomeComponent } from './components/public/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { RegisterComponent } from './components/public/register/register.component';
+import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { ClientGuard } from './guards/client.guard';
 
 const routes: Routes = [
   {path: '',   redirectTo: 'home', pathMatch: 'full'},  
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'admin/category/list', component: CategoriesListComponent},
-  {path: 'admin/category/add', component: CategoryAddComponent},
-  {path: 'admin/category/update/:id', component: CategoryUpdateComponent},
-  {path: 'admin/product/list', component: ProductListComponent},
-  {path: 'admin/product/add', component: ProductAddComponent},
-  {path: 'admin/product/update/:id', component: ProductUpdateComponent},
-  {path: 'admin/order/list', component: OrdersListComponent},
-  {path: 'admin/order/details', component: OrdersDetailsComponent},
-  {path: 'admin/client/list', component: ClientListComponent},
-  {path: 'client/order/list', component: MyOrderListComponent},
-  {path: 'client/order/details', component: MyOrderDetailsComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardGuard]},
+  
+  {path: 'admin/category/list', component: CategoriesListComponent, canActivate:[AdminGuard]},
+  {path: 'admin/category/add', component: CategoryAddComponent, canActivate:[AdminGuard]},
+  {path: 'admin/category/update/:id', component: CategoryUpdateComponent, canActivate:[AdminGuard]},
+  {path: 'admin/product/list', component: ProductListComponent, canActivate:[AdminGuard]},
+  {path: 'admin/product/add', component: ProductAddComponent, canActivate:[AdminGuard]},
+  {path: 'admin/product/update/:id', component: ProductUpdateComponent, canActivate:[AdminGuard]},
+  {path: 'admin/order/list', component: OrdersListComponent, canActivate:[AdminGuard]},
+  {path: 'admin/order/details', component: OrdersDetailsComponent, canActivate:[AdminGuard]},
+  {path: 'admin/client/list', component: ClientListComponent, canActivate:[AdminGuard]},
+
+  {path: 'client/order/list', component: MyOrderListComponent, canActivate:[ClientGuard]},
+  {path: 'client/order/details', component: MyOrderDetailsComponent, canActivate:[ClientGuard]},
 
 ];
 

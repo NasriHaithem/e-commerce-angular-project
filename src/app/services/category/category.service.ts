@@ -8,7 +8,7 @@ import { Category } from 'src/app/models/category';
 })
 export class CategoryService {
 
-  private categoryUrl = "http://localhost:8081/categories/";
+  private categoryUrl = "http://localhost:8082/categories/";
 
   constructor(private http: HttpClient) { }
   getAllCategories() {

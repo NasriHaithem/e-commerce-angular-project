@@ -11,9 +11,9 @@
 
             <div class="card">
                 <ul id="categories" class="list-group list-group-flush">
-                    <li style="cursor:pointer" class="list-group-item">All</li>
+                    <li style="cursor:pointer" class="list-group-item" (click)="filterByCategory(0)">All</li>
 
-                    <li style="cursor:pointer" class="list-group-item" *ngFor="let category of categories">{{category.name}}</li>
+                    <li style="cursor:pointer" class="list-group-item" *ngFor="let category of categories" (click)="filterByCategory(category.id)">{{category.name}}</li>
                 </ul>
             </div>
         </div>

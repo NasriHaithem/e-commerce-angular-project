@@ -62,7 +62,7 @@ export class ProductUpdateComponent implements OnInit {
           name: res.name,
           description: res.description,
           price: res.price, 
-          category: res.category?.name,
+          category: res.category?.id,
           image: res.imageUrl
     
         })

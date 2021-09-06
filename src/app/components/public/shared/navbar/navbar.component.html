@@ -16,7 +16,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="isLoggedIn" class="nav-item">
                     <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
                 </li>
                 <li class="nav-item ">
@@ -25,14 +25,14 @@
                         <span id="cart-number" class="badge badge-primary badge-pill">0</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="!isLoggedIn" class="nav-item">
                     <a class="btn btn-sm btn-info mt-1" routerLink="/login" routerLinkActive="active">Login</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="!isLoggedIn" class="nav-item">
                     <a class="btn btn-sm btn-primary mx-3 mt-1" routerLink="/register" routerLinkActive="active">Register</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn btn-sm btn-danger mt-1" href="#">Logout</a>
+                <li *ngIf="isLoggedIn" class="nav-item">
+                    <a class="btn btn-sm btn-danger mt-1" href="#" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>

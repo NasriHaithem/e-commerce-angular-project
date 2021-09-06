@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user/user';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +13,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
 
     let formControls = {
       firstname: new FormControl('',[
@@ -47,10 +50,24 @@ export class RegisterComponent implements OnInit {
   get repassword() { return this.registerForm.get('repassword') }
 
   ngOnInit(): void {
+    let isLoggedIn = this.userService.isLoggedIn();
+
+    if (isLoggedIn) {
+      this.router.navigate(['/home']);
+    } 
   }
 
   register(){
     let data = this.registerForm.value;
-    console.log(data);   
+    let user = new User(data.firstname,data.lastname,data.email,data.password);
+
+    this.userService.registerAdmin(user).subscribe(
+      res=>{
+        this.router.navigate(['/login']);
+      },
+      err=>{
+        console.log(err);
+      }
+    )
   }
 }

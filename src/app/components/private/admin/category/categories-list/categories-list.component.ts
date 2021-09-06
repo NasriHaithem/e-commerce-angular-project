@@ -10,6 +10,8 @@ import { CategoryService } from 'src/app/services/category/category.service';
 export class CategoriesListComponent implements OnInit {
 
   categories: Category[] = []
+  allCategories: Category[] = []
+  name: string = "";
 
   constructor(private categoryService: CategoryService) { }
 
@@ -21,6 +23,7 @@ export class CategoriesListComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe(
       (result) => {
         this.categories = result;
+        this.allCategories = result;
       },
       (err) => {
         console.log(err);      
@@ -46,5 +49,9 @@ export class CategoriesListComponent implements OnInit {
       }
 
     )
+  }
+
+  filterByName(name: string) {    
+    this.categories = this.allCategories.filter( (c) => c.name?.includes(name));
   }
 }

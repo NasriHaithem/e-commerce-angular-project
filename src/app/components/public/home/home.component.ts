@@ -12,6 +12,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class HomeComponent implements OnInit {
   categories: Category[] = [];
   products: Product[] = [];
+  allProducts: Product[] = [];
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService) { }
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.productService.findAllProducts().subscribe(
       (result) => {
         this.products = result;
+        this.allProducts = result;
       },
       (err) => {
         console.log(err);
@@ -44,4 +46,9 @@ export class HomeComponent implements OnInit {
       }
     )
   }
+
+  filterByCategory(id: Number | undefined) {
+    id == 0 ? this.products = this.allProducts : this.products = this.allProducts.filter( (p) => p.category?.id == id);
+  }
+
 }
