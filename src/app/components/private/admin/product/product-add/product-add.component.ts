@@ -59,8 +59,9 @@ export class ProductAddComponent implements OnInit {
 
   addProduct(){
     let data = this.addProductForm.value;
+    let file = data.image as File;
     let product=new Product(undefined,data.name,data.description,data.image,data.price,new Category(data.category))
-    this.service.addProduct(product).subscribe(
+    this.service.addProduct(product, file).subscribe(
       res=>this.router.navigateByUrl("admin/product/list"),
       err=>console.log(err)
       

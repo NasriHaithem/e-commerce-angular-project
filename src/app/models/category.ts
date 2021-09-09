@@ -1,6 +1,6 @@
 import { Product } from "./product/product";
 
-export class Category {
+export class Category{
     constructor(
         public id?: Number,
         public name?: String,

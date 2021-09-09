@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Product } from 'src/app/models/product/product';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,8 +10,17 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
 
-  addProduct(product:any){
+  addProduct(product:any, file: File){
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    
+    const formaData = new FormData();
+    formaData.append('image', file);
+    formaData.append('product', JSON.stringify(product));
+
     return this.http.post<any>(this.productUrl + 'add',product);
+
   }
   findAllProducts(){
     return this.http.get<any>(this.productUrl + 'all');
